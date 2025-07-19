@@ -24,8 +24,10 @@
             <h1>Settings</h1></div>
             <div class="h-sm flex gap-3 hover:bg-gray-300 rounded-md"><img src="./Assets/Icons/customerService.png" alt="PartsIcon">
             <h1>Customer Service</h1></div>
-            <div class="h-sm flex gap-3 hover:bg-gray-300 rounded-md"><img src="./Assets/Icons/logout.png" alt="PartsIcon">
-            <h1>Logout</h1></div>
+            <div class="h-sm flex gap-3 hover:bg-gray-300 rounded-md">
+                <img src="./Assets/Icons/logout.png" alt="PartsIcon">
+                <a href="./index.php"><h1>Logout</h1></a>
+            </div>
         </div>
     </div>
 </div>

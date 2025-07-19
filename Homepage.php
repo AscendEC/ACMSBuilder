@@ -20,7 +20,7 @@
 
             <!--owner Info-->
             <div class="w-full px-30 flex flex-col justify-center items-center gap-10">
-                <h1 class="text-5xl font-bold">USER</h1>
+                <h1 class="text-5xl font-bold">DASHBOARD</h1>
                 <h1 class="text-lg px-52">
                      "The greatest achievements are not those rushed into existence, but those that waited through failure, endured delay,
                      and matured with time."

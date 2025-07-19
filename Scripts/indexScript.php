@@ -16,5 +16,13 @@
         SignInForm.classList.remove('hidden');
     });
 
+    document.getElementById('SignUpFormElement').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent normal form submission
+        window.location.href = 'Homepage.php'; // Redirect
+    });
 
+    document.getElementById('SignInFormElement').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent normal form submission
+        window.location.href = 'Homepage.php'; // Redirect
+    });
 </script>
