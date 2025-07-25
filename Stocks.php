@@ -1,364 +1,566 @@
-<body>
-    <!--Important import files-->
+<body class="bg-gray-100">
+    <!-- Important import files -->
     <?php
         include "./Inclusions/Head.php";
         include "./Inclusions/navbar.php";
     ?>
 
-    <!--Main Body for Sales Page, 2 Columns-->
-    <div id="BodyDiv" class="w-full h-full flex">
-
-        <div class="w-1/7">
-            <!--Sidebar from import-->
+    <!-- Main Body for Stocks Page -->
+    <div id="BodyDiv" class="w-full min-h-screen flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-md">
             <?php
                 include "./Inclusions/sidebar.php";
             ?>
         </div>
 
-        <!--Parts Distribution-->
-        <div class="w-full py-10 px-18 flex flex-col gap-5">
-
-            <div class="w-full h-20 my-5 text-5xl font-bold flex justify-center items-center">
-                <h1>Monthly Sales Record</h1>
+        <!-- Stock Inventory Log Content -->
+        <div class="w-5/6 p-8">
+            <!-- Page Header -->
+            <div class="w-full mb-8 flex flex-col justify-center items-center gap-6">
+                <h1 class="text-5xl font-bold text-gray-800">Stocks Log List</h1>
             </div>
 
-            <!--Indicators-->
-            <div class="flex justify-center gap-5">
-
-                
-                <!--Distribution Status-->
-                <div class="w-1/4 h-30 bg-blue-200 rounded-sm shadow-sm flex">
-                    <div class="w-70 flex justify-center items-center">
-                        <p class="text-2xl">Pending <br> Status</p>
-                    </div>
-                    <div class="flex justify-center items-center w-1/2">
-                        <p class="text-4xl font-bold">1</p>
-                    </div>
+            <!-- Stock Table -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <!-- Search Bar -->
+                <div class="mb-6 flex justify-end">
+                    <input type="text" id="tableSearch" class="w-80 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 text-gray-700" placeholder="Search stock...">
                 </div>
-
-                <!--Distribution Status-->
-                <div class="w-1/4 h-30 bg-blue-200 rounded-sm shadow-sm flex">
-                    <div class="w-70 flex justify-center items-center">
-                        <p class="text-2xl">Duplicate <br> Distribution</p>
-                    </div>
-                    <div class="flex justify-center items-center w-1/2">
-                        <p class="text-4xl font-bold">1</p>
-                    </div>
-                </div>
-
-                <!--Distribution Status-->
-                <div class="w-1/5 h-20 my-5 bg-blue-200 rounded-sm shadow-sm flex">
-                    <div class="w-70 flex justify-center items-center gap-3 hover:cursor-pointer hover:bg-blue-400 transition-colors" onclick="openAddModal()">
-                        <img src="./Assets/Icons/note.png" alt="noteIcon">
-                        <p class="text-xl">Log a Sale</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <!--Distribution Table-->
-            <div class="h-full w-full">
-
-                <table id="distributionTable" class="table-auto border-separate border h-fit max-h-full">
+                <table id="stockTable" class="w-full table-auto border-separate border-spacing-y-2">
                     <thead>
-                        <tr class="text-xl">
-                            <th class="w-md ">Material Code</th>
-                            <th class="w-md ">Name</th>
-                            <th class="w-md ">Quantity</th>
-                            <th class="w-lg ">Item Price</th>
-                            <th class="w-lg ">Total Price</th>
-                            <th class="w-lg ">Brand</th>
-                            <th class="w-md ">Shop</th>
-                            <th class="w-md ">Date Added</th>
-                            <th class="w-md ">Action</th>
+                        <tr class="text-lg text-gray-600 bg-gray-100">
+                            <th class="p-4 text-left">Material ID</th>
+                            <th class="p-4 text-left">Name</th>
+                            <th class="p-4 text-left">Quantity</th>
+                            <th class="p-4 text-left">Item Price</th>
+                            <th class="p-4 text-left">Total Price</th>
+                            <th class="p-4 text-left">Brand</th>
+                            <th class="p-4 text-left">Shop</th>
+                            <th class="p-4 text-left">Stock Location</th>
+                            <th class="p-4 text-left">Status</th>
+                            <th class="p-4 text-left">Date and Time</th>
+                            <th class="p-4 text-left">Details</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="row-MAT1002" class="odd:bg-blue-100 even:bg-blue-200 h-10"
-                            data-code="MAT1002"
-                            data-name="Davis Elastic Paint Yellow"
-                            data-quantity="20"
-                            data-itemprice="420"
-                            data-totalprice="1420"
-                            data-brand="Davis"
-                            data-shop="City Hardware, Bajada"
-                            data-date="June 15, 2005">
-                            <td>MAT1002</td>
-                            <td>Davis Elastic Paint Yellow</td>
-                            <td class="text-end">20</td>
-                            <td class="text-end">420</td>
-                            <td class="text-end">1420</td>
-                            <td>Davis</td>
-                            <td>City Hardware, Bajada</td>
-                            <td>June 15, 2005</td>
-                            <td>
-                                <div class="flex gap-5">
-                                    <div>
-                                        <img src="./Assets/Icons/update.png" alt="update" class="cursor-pointer edit-btn">
-                                    </div>
-                                    <div>
-                                        <img src="./Assets/Icons/delete.png" alt="delete" class="cursor-pointer delete-btn">
-                                    </div>
-                                </div>
+                        <tr id="row-000101-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000101" data-name="Breeze Blocks Model A" data-quantity="20" data-itemprice="150" data-totalprice="3000" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-06-01 08:00:00" data-status="Added" data-distribution-id="000101">
+                            <td class="p-4">000101</td>
+                            <td class="p-4">Breeze Blocks Model A</td>
+                            <td class="p-4 font-semibold text-blue-800">20</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">3000</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-06-01 08:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000101', 'Breeze Blocks Model A', 20, 150, 3000, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-06-01 08:00:00', 'Added', '000101')">
+                            </td>
+                        </tr>
+                        <tr id="row-000101-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000101" data-name="Breeze Blocks Model A" data-quantity="10" data-itemprice="150" data-totalprice="1500" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-06-05 14:00:00" data-status="Released" data-distribution-id="000101">
+                            <td class="p-4">000101</td>
+                            <td class="p-4">Breeze Blocks Model A</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">1500</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-06-05 14:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000101', 'Breeze Blocks Model A', 10, 150, 1500, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-06-05 14:00:00', 'Released', '000101')">
+                            </td>
+                        </tr>
+                        <tr id="row-200101-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200101" data-name="Light Steel Frame Type 1" data-quantity="18" data-itemprice="500" data-totalprice="9000" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-06-10 09:00:00" data-status="Added" data-distribution-id="200101">
+                            <td class="p-4">200101</td>
+                            <td class="p-4">Light Steel Frame Type 1</td>
+                            <td class="p-4 font-semibold text-blue-800">18</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">9000</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-06-10 09:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200101', 'Light Steel Frame Type 1', 18, 500, 9000, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-06-10 09:00:00', 'Added', '200101')">
+                            </td>
+                        </tr>
+                        <tr id="row-200101-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200101" data-name="Light Steel Frame Type 1" data-quantity="10" data-itemprice="500" data-totalprice="5000" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-06-15 15:00:00" data-status="Released" data-distribution-id="200101">
+                            <td class="p-4">200101</td>
+                            <td class="p-4">Light Steel Frame Type 1</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">5000</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-06-15 15:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200101', 'Light Steel Frame Type 1', 10, 500, 5000, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-06-15 15:00:00', 'Released', '200101')">
+                            </td>
+                        </tr>
+                        <tr id="row-000103-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000103" data-name="Breeze Blocks Model Z" data-quantity="15" data-itemprice="150" data-totalprice="2250" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="Warehouse 2" data-date-time="2025-06-05 10:00:00" data-status="Added" data-distribution-id="N/A">
+                            <td class="p-4">000103</td>
+                            <td class="p-4">Breeze Blocks Model Z</td>
+                            <td class="p-4 font-semibold text-blue-800">15</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">2250</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">Warehouse 2</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-06-05 10:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000103', 'Breeze Blocks Model Z', 15, 150, 2250, 'BuildRite', 'BuildRite, Davao', 'Warehouse 2', '2025-06-05 10:00:00', 'Added', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000103-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000103" data-name="Breeze Blocks Model Z" data-quantity="10" data-itemprice="150" data-totalprice="1500" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="Warehouse 2" data-date-time="2025-06-10 16:00:00" data-status="Released" data-distribution-id="N/A">
+                            <td class="p-4">000103</td>
+                            <td class="p-4">Breeze Blocks Model Z</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">1500</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">Warehouse 2</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-06-10 16:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000103', 'Breeze Blocks Model Z', 10, 150, 1500, 'BuildRite', 'BuildRite, Davao', 'Warehouse 2', '2025-06-10 16:00:00', 'Released', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-200104-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200104" data-name="Light Steel Frame Type 5" data-quantity="15" data-itemprice="500" data-totalprice="7500" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="Store B" data-date-time="2025-06-15 08:30:00" data-status="Added" data-distribution-id="200104">
+                            <td class="p-4">200104</td>
+                            <td class="p-4">Light Steel Frame Type 5</td>
+                            <td class="p-4 font-semibold text-blue-800">15</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">7500</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">Store B</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-06-15 08:30:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200104', 'Light Steel Frame Type 5', 15, 500, 7500, 'Archispex', 'Archispex, Ma-a', 'Store B', '2025-06-15 08:30:00', 'Added', '200104')">
+                            </td>
+                        </tr>
+                        <tr id="row-200104-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200104" data-name="Light Steel Frame Type 5" data-quantity="10" data-itemprice="500" data-totalprice="5000" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="Store B" data-date-time="2025-06-20 14:30:00" data-status="Released" data-distribution-id="200104">
+                            <td class="p-4">200104</td>
+                            <td class="p-4">Light Steel Frame Type 5</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">5000</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">Store B</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-06-20 14:30:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200104', 'Light Steel Frame Type 5', 10, 500, 5000, 'Archispex', 'Archispex, Ma-a', 'Store B', '2025-06-20 14:30:00', 'Released', '200104')">
+                            </td>
+                        </tr>
+                        <tr id="row-000104-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000104" data-name="Breeze Blocks Model B" data-quantity="15" data-itemprice="150" data-totalprice="2250" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="ACMSB Warehouse" data-date-time="2025-06-20 09:00:00" data-status="Added" data-distribution-id="N/A">
+                            <td class="p-4">000104</td>
+                            <td class="p-4">Breeze Blocks Model B</td>
+                            <td class="p-4 font-semibold text-blue-800">15</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">2250</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-06-20 09:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000104', 'Breeze Blocks Model B', 15, 150, 2250, 'BuildRite', 'BuildRite, Davao', 'ACMSB Warehouse', '2025-06-20 09:00:00', 'Added', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000104-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000104" data-name="Breeze Blocks Model B" data-quantity="10" data-itemprice="150" data-totalprice="1500" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="ACMSB Warehouse" data-date-time="2025-06-25 15:00:00" data-status="Released" data-distribution-id="N/A">
+                            <td class="p-4">000104</td>
+                            <td class="p-4">Breeze Blocks Model B</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">1500</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-06-25 15:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000104', 'Breeze Blocks Model B', 10, 150, 1500, 'BuildRite', 'BuildRite, Davao', 'ACMSB Warehouse', '2025-06-25 15:00:00', 'Released', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000114-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000114" data-name="Breeze Blocks Model N" data-quantity="20" data-itemprice="150" data-totalprice="3000" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-07-15 08:00:00" data-status="Added" data-distribution-id="000114">
+                            <td class="p-4">000114</td>
+                            <td class="p-4">Breeze Blocks Model N</td>
+                            <td class="p-4 font-semibold text-blue-800">20</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">3000</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-07-15 08:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000114', 'Breeze Blocks Model N', 20, 150, 3000, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-07-15 08:00:00', 'Added', '000114')">
+                            </td>
+                        </tr>
+                        <tr id="row-000114-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000114" data-name="Breeze Blocks Model N" data-quantity="10" data-itemprice="150" data-totalprice="1500" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-07-20 14:00:00" data-status="Released" data-distribution-id="000114">
+                            <td class="p-4">000114</td>
+                            <td class="p-4">Breeze Blocks Model N</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">1500</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-07-20 14:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000114', 'Breeze Blocks Model N', 10, 150, 1500, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-07-20 14:00:00', 'Released', '000114')">
+                            </td>
+                        </tr>
+                        <tr id="row-200103-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200103" data-name="Light Steel Frame Type 3" data-quantity="15" data-itemprice="500" data-totalprice="7500" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-07-20 09:30:00" data-status="Added" data-distribution-id="200103">
+                            <td class="p-4">200103</td>
+                            <td class="p-4">Light Steel Frame Type 3</td>
+                            <td class="p-4 font-semibold text-blue-800">15</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">7500</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-07-20 09:30:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200103', 'Light Steel Frame Type 3', 15, 500, 7500, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-07-20 09:30:00', 'Added', '200103')">
+                            </td>
+                        </tr>
+                        <tr id="row-200103-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200103" data-name="Light Steel Frame Type 3" data-quantity="10" data-itemprice="500" data-totalprice="5000" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-07-25 15:30:00" data-status="Released" data-distribution-id="200103">
+                            <td class="p-4">200103</td>
+                            <td class="p-4">Light Steel Frame Type 3</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">5000</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-07-25 15:30:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200103', 'Light Steel Frame Type 3', 10, 500, 5000, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-07-25 15:30:00', 'Released', '200103')">
+                            </td>
+                        </tr>
+                        <tr id="row-000105-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000105" data-name="Breeze Blocks Model A" data-quantity="22" data-itemprice="150" data-totalprice="3300" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="Warehouse 2" data-date-time="2025-07-10 10:00:00" data-status="Added" data-distribution-id="N/A">
+                            <td class="p-4">000105</td>
+                            <td class="p-4">Breeze Blocks Model A</td>
+                            <td class="p-4 font-semibold text-blue-800">22</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">3300</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">Warehouse 2</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-07-10 10:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000105', 'Breeze Blocks Model A', 22, 150, 3300, 'BuildRite', 'BuildRite, Davao', 'Warehouse 2', '2025-07-10 10:00:00', 'Added', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000105-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000105" data-name="Breeze Blocks Model A" data-quantity="12" data-itemprice="150" data-totalprice="1800" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="Warehouse 2" data-date-time="2025-07-15 16:00:00" data-status="Released" data-distribution-id="N/A">
+                            <td class="p-4">000105</td>
+                            <td class="p-4">Breeze Blocks Model A</td>
+                            <td class="p-4 font-semibold text-blue-800">12</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">1800</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">Warehouse 2</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-07-15 16:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000105', 'Breeze Blocks Model A', 12, 150, 1800, 'BuildRite', 'BuildRite, Davao', 'Warehouse 2', '2025-07-15 16:00:00', 'Released', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-200105-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200105" data-name="Light Steel Frame Type 7" data-quantity="16" data-itemprice="500" data-totalprice="8000" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="Store B" data-date-time="2025-07-25 08:00:00" data-status="Added" data-distribution-id="N/A">
+                            <td class="p-4">200105</td>
+                            <td class="p-4">Light Steel Frame Type 7</td>
+                            <td class="p-4 font-semibold text-blue-800">16</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">8000</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">Store B</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-07-25 08:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200105', 'Light Steel Frame Type 7', 16, 500, 8000, 'Archispex', 'Archispex, Ma-a', 'Store B', '2025-07-25 08:00:00', 'Added', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-200105-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200105" data-name="Light Steel Frame Type 7" data-quantity="10" data-itemprice="500" data-totalprice="5000" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="Store B" data-date-time="2025-07-30 14:00:00" data-status="Released" data-distribution-id="N/A">
+                            <td class="p-4">200105</td>
+                            <td class="p-4">Light Steel Frame Type 7</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">5000</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">Store B</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-07-30 14:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200105', 'Light Steel Frame Type 7', 10, 500, 5000, 'Archispex', 'Archispex, Ma-a', 'Store B', '2025-07-30 14:00:00', 'Released', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000106-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000106" data-name="Breeze Blocks Model Z" data-quantity="15" data-itemprice="150" data-totalprice="2250" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="ACMSB Warehouse" data-date-time="2025-07-05 09:00:00" data-status="Added" data-distribution-id="N/A">
+                            <td class="p-4">000106</td>
+                            <td class="p-4">Breeze Blocks Model Z</td>
+                            <td class="p-4 font-semibold text-blue-800">15</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">2250</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-07-05 09:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000106', 'Breeze Blocks Model Z', 15, 150, 2250, 'BuildRite', 'BuildRite, Davao', 'ACMSB Warehouse', '2025-07-05 09:00:00', 'Added', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000106-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000106" data-name="Breeze Blocks Model Z" data-quantity="10" data-itemprice="150" data-totalprice="1500" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="ACMSB Warehouse" data-date-time="2025-07-10 15:00:00" data-status="Released" data-distribution-id="N/A">
+                            <td class="p-4">000106</td>
+                            <td class="p-4">Breeze Blocks Model Z</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">1500</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-07-10 15:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000106', 'Breeze Blocks Model Z', 10, 150, 1500, 'BuildRite', 'BuildRite, Davao', 'ACMSB Warehouse', '2025-07-10 15:00:00', 'Released', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000102-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000102" data-name="Breeze Blocks Model B" data-quantity="18" data-itemprice="150" data-totalprice="2700" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-08-25 08:30:00" data-status="Added" data-distribution-id="000102">
+                            <td class="p-4">000102</td>
+                            <td class="p-4">Breeze Blocks Model B</td>
+                            <td class="p-4 font-semibold text-blue-800">18</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">2700</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-08-25 08:30:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000102', 'Breeze Blocks Model B', 18, 150, 2700, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-08-25 08:30:00', 'Added', '000102')">
+                            </td>
+                        </tr>
+                        <tr id="row-000102-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000102" data-name="Breeze Blocks Model B" data-quantity="10" data-itemprice="150" data-totalprice="1500" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="ACMSB Warehouse" data-date-time="2025-08-30 14:30:00" data-status="Released" data-distribution-id="000102">
+                            <td class="p-4">000102</td>
+                            <td class="p-4">Breeze Blocks Model B</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">1500</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-08-30 14:30:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000102', 'Breeze Blocks Model B', 10, 150, 1500, 'Archispex', 'Archispex, Ma-a', 'ACMSB Warehouse', '2025-08-30 14:30:00', 'Released', '000102')">
+                            </td>
+                        </tr>
+                        <tr id="row-000107-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000107" data-name="Breeze Blocks Model N" data-quantity="17" data-itemprice="150" data-totalprice="2550" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="Warehouse 2" data-date-time="2025-08-15 10:00:00" data-status="Added" data-distribution-id="N/A">
+                            <td class="p-4">000107</td>
+                            <td class="p-4">Breeze Blocks Model N</td>
+                            <td class="p-4 font-semibold text-blue-800">17</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">2550</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">Warehouse 2</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-08-15 10:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000107', 'Breeze Blocks Model N', 17, 150, 2550, 'BuildRite', 'BuildRite, Davao', 'Warehouse 2', '2025-08-15 10:00:00', 'Added', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000107-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000107" data-name="Breeze Blocks Model N" data-quantity="10" data-itemprice="150" data-totalprice="1500" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="Warehouse 2" data-date-time="2025-08-20 16:00:00" data-status="Released" data-distribution-id="N/A">
+                            <td class="p-4">000107</td>
+                            <td class="p-4">Breeze Blocks Model N</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">1500</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">Warehouse 2</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-08-20 16:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000107', 'Breeze Blocks Model N', 10, 150, 1500, 'BuildRite', 'BuildRite, Davao', 'Warehouse 2', '2025-08-20 16:00:00', 'Released', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-200106-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200106" data-name="Light Steel Frame Type 1" data-quantity="15" data-itemprice="500" data-totalprice="7500" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="Store B" data-date-time="2025-08-20 09:00:00" data-status="Added" data-distribution-id="N/A">
+                            <td class="p-4">200106</td>
+                            <td class="p-4">Light Steel Frame Type 1</td>
+                            <td class="p-4 font-semibold text-blue-800">15</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">7500</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">Store B</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-08-20 09:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200106', 'Light Steel Frame Type 1', 15, 500, 7500, 'Archispex', 'Archispex, Ma-a', 'Store B', '2025-08-20 09:00:00', 'Added', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-200106-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="200106" data-name="Light Steel Frame Type 1" data-quantity="10" data-itemprice="500" data-totalprice="5000" data-brand="Archispex" data-shop="Archispex, Ma-a" data-location="Store B" data-date-time="2025-08-25 15:00:00" data-status="Released" data-distribution-id="N/A">
+                            <td class="p-4">200106</td>
+                            <td class="p-4">Light Steel Frame Type 1</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">500</td>
+                            <td class="p-4 font-semibold">5000</td>
+                            <td class="p-4">Archispex</td>
+                            <td class="p-4">Archispex, Ma-a</td>
+                            <td class="p-4">Store B</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-08-25 15:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('200106', 'Light Steel Frame Type 1', 10, 500, 5000, 'Archispex', 'Archispex, Ma-a', 'Store B', '2025-08-25 15:00:00', 'Released', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000108-added" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000108" data-name="Breeze Blocks Model A" data-quantity="15" data-itemprice="150" data-totalprice="2250" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="ACMSB Warehouse" data-date-time="2025-08-10 08:00:00" data-status="Added" data-distribution-id="N/A">
+                            <td class="p-4">000108</td>
+                            <td class="p-4">Breeze Blocks Model A</td>
+                            <td class="p-4 font-semibold text-blue-800">15</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">2250</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Added</td>
+                            <td class="p-4">2025-08-10 08:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000108', 'Breeze Blocks Model A', 15, 150, 2250, 'BuildRite', 'BuildRite, Davao', 'ACMSB Warehouse', '2025-08-10 08:00:00', 'Added', 'N/A')">
+                            </td>
+                        </tr>
+                        <tr id="row-000108-released" class="odd:bg-blue-50 even:bg-blue-100 hover:bg-blue-200 transition-colors" data-code="000108" data-name="Breeze Blocks Model A" data-quantity="10" data-itemprice="150" data-totalprice="1500" data-brand="BuildRite" data-shop="BuildRite, Davao" data-location="ACMSB Warehouse" data-date-time="2025-08-15 14:00:00" data-status="Released" data-distribution-id="N/A">
+                            <td class="p-4">000108</td>
+                            <td class="p-4">Breeze Blocks Model A</td>
+                            <td class="p-4 font-semibold text-blue-800">10</td>
+                            <td class="p-4 font-semibold">150</td>
+                            <td class="p-4 font-semibold">1500</td>
+                            <td class="p-4">BuildRite</td>
+                            <td class="p-4">BuildRite, Davao</td>
+                            <td class="p-4">ACMSB Warehouse</td>
+                            <td class="p-4">Released</td>
+                            <td class="p-4">2025-08-15 14:00:00</td>
+                            <td class="p-4">
+                                <img src="./Assets/Icons/details.png" alt="details" class="w-6 h-6 cursor-pointer" onclick="openDetailsModal('000108', 'Breeze Blocks Model A', 10, 150, 1500, 'BuildRite', 'BuildRite, Davao', 'ACMSB Warehouse', '2025-08-15 14:00:00', 'Released', 'N/A')">
                             </td>
                         </tr>
                     </tbody>
                 </table>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!--Edit Item Modal-->
-    <div id="editModal" class="fixed inset-0 flex items-center justify-center hidden z-50" style="background: rgba(0,0,0,0.1);">
-        <div class="bg-white rounded-md p-8 w-96 shadow-lg">
-            <h2 class="text-xl mb-4 font-bold">Edit Item</h2>
-            <form id="editForm">
-                <label>Material Code</label>
-                <input type="text" id="editCode" class="border rounded-md w-full mb-2 p-2">
-                <label>Name</label>
-                <input type="text" id="editName" class="border rounded-md w-full mb-2 p-2">
-                <label>Quantity</label>
-                <input type="number" id="editQuantity" class="border rounded-md w-full mb-2 p-2">
-                <label>Item Price</label>
-                <input type="number" id="editItemPrice" class="border rounded-md w-full mb-2 p-2">
-                <label>Total Price</label>
-                <input type="number" id="editTotalPrice" class="border rounded-md w-full mb-2 p-2">
-                <label>Brand</label>
-                <input type="text" id="editBrand" class="border rounded-md w-full mb-2 p-2">
-                <label>Shop</label>
-                <input type="text" id="editShop" class="border rounded-md w-full mb-2 p-2">
-                <label>Date Added</label>
-                <input type="date" id="editDate" class="border rounded-md w-full mb-2 p-2">
-                <div class="flex justify-end gap-2 mt-4">
-                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!--Delete Item Modal-->
-    <div id="deleteModal" class="fixed inset-0 flex items-center justify-center hidden z-50" style="background: rgba(0,0,0,0.1);">
-        <div class="bg-white rounded-md p-8 w-96 shadow-lg text-center">
-            <h2 class="text-xl mb-4 font-bold">Confirm Delete</h2>
-            <p class="mb-6">Are you sure you want to delete this record?</p>
-            <div class="flex justify-center gap-4">
-                <button type="button" onclick="closeDeleteModal()" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-                <button type="button" onclick="confirmDelete()" class="px-4 py-2 bg-red-500 text-white rounded">Delete</button>
             </div>
         </div>
     </div>
 
-    <!-- Add Sale Modal -->
-    <div id="addModal" class="fixed inset-0 flex items-center justify-center hidden z-50" style="background: rgba(0,0,0,0.1);">
-        <div class="bg-white rounded-md p-8 w-96 shadow-lg">
-            <h2 class="text-xl mb-4 font-bold">Add Sale</h2>
-            <form id="addForm">
-                <label>Material Code</label>
-                <input type="text" id="addCode" class="border rounded-md w-full mb-2 p-2" required>
-                <label>Name</label>
-                <input type="text" id="addName" class="border rounded-md w-full mb-2 p-2" required>
-                <label>Quantity</label>
-                <input type="number" id="addQuantity" class="border rounded-md w-full mb-2 p-2" required>
-                <label>Item Price</label>
-                <input type="number" id="addItemPrice" class="border rounded-md w-full mb-2 p-2" required>
-                <label>Total Price</label>
-                <input type="number" id="addTotalPrice" class="border rounded-md w-full mb-2 p-2" required>
-                <label>Brand</label>
-                <input type="text" id="addBrand" class="border rounded-md w-full mb-2 p-2" required>
-                <label>Shop</label>
-                <input type="text" id="addShop" class="border rounded-md w-full mb-2 p-2" required>
-                <label>Date Added</label>
-                <input type="date" id="addDate" class="border rounded-md w-full mb-2 p-2" required>
-                <div class="flex justify-end gap-2 mt-4">
-                    <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Add</button>
+    <!-- Details Modal -->
+    <div id="detailsModal" class="fixed inset-0 flex items-center justify-center hidden z-50 bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg p-8 w-96 shadow-xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Stock Item Details</h2>
+            <div class="space-y-4">
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Material ID</span>
+                    <span id="detailsCode" class="block text-gray-900"></span>
                 </div>
-            </form>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Name</span>
+                    <span id="detailsName" class="block text-gray-900"></span>
+                </div>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Quantity</span>
+                    <span id="detailsQuantity" class="block text-gray-900"></span>
+                </div>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Item Price</span>
+                    <span id="detailsItemPrice" class="block text-gray-900"></span>
+                </div>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Total Price</span>
+                    <span id="detailsTotalPrice" class="block text-gray-900"></span>
+                </div>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Brand</span>
+                    <span id="detailsBrand" class="block text-gray-900"></span>
+                </div>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Shop</span>
+                    <span id="detailsShop" class="block text-gray-900"></span>
+                </div>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Stock Location</span>
+                    <span id="detailsLocation" class="block text-gray-900"></span>
+                </div>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Date and Time</span>
+                    <span id="detailsDateTime" class="block text-gray-900"></span>
+                </div>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Status</span>
+                    <span id="detailsStatus" class="block text-gray-900"></span>
+                </div>
+                <div>
+                    <span class="block text-sm font-medium text-gray-700">Distribution ID</span>
+                    <span id="detailsDistributionId" class="block text-gray-900"></span>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button type="button" onclick="closeDetailsModal()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!--Script import for functionalities-->
+    <!-- Script for Table and Modal -->
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const dtable = document.querySelector("#distributionTable");
-        new simpleDatatables.DataTable(dtable);
+        document.addEventListener('DOMContentLoaded', function () {
+            const dtable = document.querySelector("#stockTable");
+            const dataTable = new simpleDatatables.DataTable(dtable, {
+                searchable: true,
+                sortable: true,
+                perPage: 10,
+                perPageSelect: [5, 10, 15, 20]
+            });
 
-        // Add event listeners for edit and delete buttons
-        document.querySelectorAll('.edit-btn').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                const tr = e.target.closest('tr');
-                openEditModal(
-                    tr.getAttribute('data-code'),
-                    tr.getAttribute('data-name'),
-                    tr.getAttribute('data-quantity'),
-                    tr.getAttribute('data-itemprice'),
-                    tr.getAttribute('data-totalprice'),
-                    tr.getAttribute('data-brand'),
-                    tr.getAttribute('data-shop'),
-                    tr.getAttribute('data-date')
-                );
+            // Search bar functionality
+            const searchInput = document.getElementById('tableSearch');
+            searchInput.addEventListener('input', function(e) {
+                dataTable.search(e.target.value);
             });
         });
 
-        document.querySelectorAll('.delete-btn').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                const tr = e.target.closest('tr');
-                openDeleteModal(tr.getAttribute('data-code'));
-            });
-        });
-    });
-
-    // After adding a new row, re-attach event listeners
-    function attachRowEventListeners(tr) {
-        tr.querySelector('.edit-btn').addEventListener('click', function(e) {
-            const trElem = e.target.closest('tr');
-            openEditModal(
-                trElem.getAttribute('data-code'),
-                trElem.getAttribute('data-name'),
-                trElem.getAttribute('data-quantity'),
-                trElem.getAttribute('data-itemprice'),
-                trElem.getAttribute('data-totalprice'),
-                trElem.getAttribute('data-brand'),
-                trElem.getAttribute('data-shop'),
-                trElem.getAttribute('data-date')
-            );
-        });
-        tr.querySelector('.delete-btn').addEventListener('click', function(e) {
-            const trElem = e.target.closest('tr');
-            openDeleteModal(trElem.getAttribute('data-code'));
-        });
-    }
-
-    let currentEditRowId = null;
-    let currentDeleteRowId = null;
-
-    function openEditModal(code, name, quantity, itemPrice, totalPrice, brand, shop, date) {
-        currentEditRowId = "row-" + code;
-        document.getElementById('editCode').value = code;
-        document.getElementById('editName').value = name;
-        document.getElementById('editQuantity').value = quantity;
-        document.getElementById('editItemPrice').value = itemPrice;
-        document.getElementById('editTotalPrice').value = totalPrice;
-        document.getElementById('editBrand').value = brand;
-        document.getElementById('editShop').value = shop;
-        document.getElementById('editDate').value = date;
-        document.getElementById('editModal').classList.remove('hidden');
-    }
-
-    function closeEditModal() {
-        document.getElementById('editModal').classList.add('hidden');
-    }
-
-    // Example handler for saving (you can expand this to send data to PHP)
-    document.getElementById('editForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Get updated values from modal
-        const code = document.getElementById('editCode').value;
-        const name = document.getElementById('editName').value;
-        const quantity = document.getElementById('editQuantity').value;
-        const itemPrice = document.getElementById('editItemPrice').value;
-        const totalPrice = document.getElementById('editTotalPrice').value;
-        const brand = document.getElementById('editBrand').value;
-        const shop = document.getElementById('editShop').value;
-        const date = document.getElementById('editDate').value;
-
-        // Find the row and update its cells
-        const row = document.getElementById(currentEditRowId);
-        if (row) {
-            row.children[0].textContent = code;
-            row.children[1].textContent = name;
-            row.children[2].textContent = quantity;
-            row.children[3].textContent = itemPrice;
-            row.children[4].textContent = totalPrice;
-            row.children[5].textContent = brand;
-            row.children[6].textContent = shop;
-            row.children[7].textContent = date;
+        // Details Modal
+        function openDetailsModal(code, name, quantity, itemPrice, totalPrice, brand, shop, location, dateTime, status, distributionId) {
+            document.getElementById('detailsCode').textContent = code;
+            document.getElementById('detailsName').textContent = name;
+            document.getElementById('detailsQuantity').textContent = quantity;
+            document.getElementById('detailsItemPrice').textContent = itemPrice;
+            document.getElementById('detailsTotalPrice').textContent = totalPrice;
+            document.getElementById('detailsBrand').textContent = brand;
+            document.getElementById('detailsShop').textContent = shop;
+            document.getElementById('detailsLocation').textContent = location;
+            document.getElementById('detailsDateTime').textContent = dateTime;
+            document.getElementById('detailsStatus').textContent = status;
+            document.getElementById('detailsDistributionId').textContent = distributionId;
+            document.getElementById('detailsModal').classList.remove('hidden');
         }
-
-        closeEditModal();
-    });
-
-    function openDeleteModal(code) {
-        currentDeleteRowId = "row-" + code;
-        document.getElementById('deleteModal').classList.remove('hidden');
-    }
-
-    function closeDeleteModal() {
-        document.getElementById('deleteModal').classList.add('hidden');
-    }
-
-    function confirmDelete() {
-        // Remove the row from the table
-        const row = document.getElementById(currentDeleteRowId);
-        if (row) {
-            row.remove();
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.add('hidden');
         }
-        closeDeleteModal();
-    }
-
-    function openAddModal() {
-        document.getElementById('addModal').classList.remove('hidden');
-    }
-
-    function closeAddModal() {
-        document.getElementById('addModal').classList.add('hidden');
-    }
-
-    document.getElementById('addForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Get values
-        const code = document.getElementById('addCode').value;
-        const name = document.getElementById('addName').value;
-        const quantity = document.getElementById('addQuantity').value;
-        const itemPrice = document.getElementById('addItemPrice').value;
-        const totalPrice = document.getElementById('addTotalPrice').value;
-        const brand = document.getElementById('addBrand').value;
-        const shop = document.getElementById('addShop').value;
-        const date = document.getElementById('addDate').value;
-
-        // Create new row
-        const tbody = document.querySelector("#distributionTable tbody");
-        const tr = document.createElement("tr");
-        tr.id = "row-" + code;
-        tr.className = "odd:bg-blue-100 even:bg-blue-200 h-10";
-        tr.setAttribute('data-code', code);
-        tr.setAttribute('data-name', name);
-        tr.setAttribute('data-quantity', quantity);
-        tr.setAttribute('data-itemprice', itemPrice);
-        tr.setAttribute('data-totalprice', totalPrice);
-        tr.setAttribute('data-brand', brand);
-        tr.setAttribute('data-shop', shop);
-        tr.setAttribute('data-date', date);
-        tr.innerHTML = `
-            <td>${code}</td>
-            <td>${name}</td>
-            <td class="text-end">${quantity}</td>
-            <td class="text-end">${itemPrice}</td>
-            <td class="text-end">${totalPrice}</td>
-            <td>${brand}</td>
-            <td>${shop}</td>
-            <td>${date}</td>
-            <td>
-                <div class="flex gap-5">
-                    <div>
-                        <img src="./Assets/Icons/update.png" alt="update" class="cursor-pointer edit-btn">
-                    </div>
-                    <div>
-                        <img src="./Assets/Icons/delete.png" alt="delete" class="cursor-pointer delete-btn">
-                    </div>
-                </div>
-            </td>
-        `;
-        tbody.appendChild(tr);
-
-        closeAddModal();
-        document.getElementById('addForm').reset();
-    });
     </script>
-
 </body>
